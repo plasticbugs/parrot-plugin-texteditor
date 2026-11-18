@@ -1,0 +1,4 @@
+commit deb22c868e88a963b7c2422ef2e51a8febed0591
+date   2026-11-17T23:31:34-08:00
+about  textedit/test/onarm.py: the big text named by its size
+copied 2026-11-18 by tools/update-sdk.sh
