@@ -4,7 +4,7 @@ Write plain text on the ColecoVision with a USB keyboard, and keep it as .txt fi
 
 ## Setup
 
-Copy `TEXTEDIT.CVP` into the `/PLUGINS` folder on the card. Start Text Editor from the Plugins page in the menu, or pick a .txt file on the card and it opens in the editor.
+Copy `TEXTEDIT.CVP` into the `/PLUGINS` folder on the card. Start Text Editor from Apps on the menu's Home page, or pick a .txt file on the card and it opens in the editor.
 
 The cart can't power a keyboard. Plug the keyboard into a powered USB hub, and the hub into the cart.
 

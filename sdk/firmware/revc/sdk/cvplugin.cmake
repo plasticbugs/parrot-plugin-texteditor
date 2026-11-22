@@ -12,6 +12,10 @@
 #                                (cvframes.h); main() includes gbkernel.h
 #                                and handoff.h for cvf_start(); and
 #                                cvdiag.h, where it got to in the trace
+#   cvframes_serve2(nes)         after cvframes_use, for every new frame
+#                                plugin: core 1's bus loop is cvfserve.S,
+#                                which acts on two samples of the pins that
+#                                agree (the old loop is still the default)
 #   cvpsram_use(nes)             the PSRAM (cvpsram.h)
 #   (before pico_sdk_import.cmake: include(.../sdk/cvpad_tinyusb.cmake), for
 #   cvpad_use's USB host from sdk/tinyusb, TinyUSB 0.21.0, whose tuh_task()
@@ -35,9 +39,15 @@
 #                                the plugin also needs cvkernel_use (the
 #                                canvas) and the KEYBOARD and CARD features
 #   cvcart_plugin(nesinfo ID parrotcart.nesinfo NAME "NES Info" VERSION 1.0.0
-#                 [BY "Parrot Cart"] [HOME /NES] [OPENS .nes ...] [USES usb-host ...]
+#                 [BY "Parrot Cart"] [HOME /NES] [OPENS .nes ...] [USES usb-host standalone ...]
 #                 [ICON icon.txt] [FILE_ICON icon.txt] [FILE NESINFO.CVP] [HEAP]
 #                 [README README.md])
+#
+# USES: what the plugin uses (usb-host, usb-device, psram; cvcart_features
+# adds these), and standalone: the plugin opens files (OPENS) but can also
+# start with none, an empty page or a demo of its own. The menu lists it
+# with the plugins that open no files, which always start on their own.
+# Without it, a plugin with OPENS starts only with one of its files.
 #
 # README: the plugin's README, which its details page on the cart shows a
 # page at a time. Write ordinary Markdown: cvreadme.py turns it into the
@@ -140,6 +150,15 @@ function(cvframes_use TARGET)
     target_link_libraries(${TARGET} pico_stdlib pico_multicore hardware_watchdog hardware_exception)
     # panic(): its message and caller in the menu's note (cvdiag.c)
     target_compile_definitions(${TARGET} PRIVATE PICO_PANIC_FUNCTION=cvd_panic)
+endfunction()
+
+# cvframes_serve2(nes), after cvframes_use: core 1's bus loop is cvfserve.S,
+# the games' loop (cvplay/cvserve.S, CVSERVE.md) for the frame lists: nothing
+# is made of one sample of the pins, and a select-like address no longer
+# stops the serving. Without it the loop is cvframes.c's own, as before.
+function(cvframes_serve2 TARGET)
+    target_sources(${TARGET} PRIVATE ${CVSDK_DIR}/cvfserve.S)
+    target_compile_definitions(${TARGET} PRIVATE CVF_SERVE2)
 endfunction()
 
 function(cvpsram_use TARGET)

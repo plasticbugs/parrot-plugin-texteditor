@@ -26,8 +26,8 @@ include(${PARROTCART_SDK}/sdk/cvplugin.cmake)
 
 # The same source makes the same file, whenever it's built: the compiler's
 # __DATE__ and __TIME__ (the build date in the binary info) come from
-# SOURCE_DATE_EPOCH, fixed here at the tested build's day, 2026-11-17.
-set(BUILD_EPOCH 1794916800)
+# SOURCE_DATE_EPOCH, fixed here at the release build's day, 2026-11-21.
+set(BUILD_EPOCH 1795262400)
 set(CMAKE_C_COMPILER_LAUNCHER ${CMAKE_COMMAND} -E env SOURCE_DATE_EPOCH=${BUILD_EPOCH})
 set(CMAKE_CXX_COMPILER_LAUNCHER ${CMAKE_COMMAND} -E env SOURCE_DATE_EPOCH=${BUILD_EPOCH})
 
@@ -39,6 +39,6 @@ cvcart_features(textedit KEYBOARD CARD)
 cvedit_use(textedit)
 pico_enable_stdio_usb(textedit 0)
 pico_enable_stdio_uart(textedit 0)
-cvcart_plugin(textedit ID parrotcart.texteditor NAME "Text Editor" VERSION 0.1.0 BY "Parrot Cart"
-              HOME /TEXT OPENS .txt ICON src/textedit_icon.txt FILE_ICON src/textedit_file_icon.txt
+cvcart_plugin(textedit ID parrotcart.texteditor NAME "Text Editor" VERSION 0.1.3 BY "Parrot Cart"
+              HOME /TEXT OPENS .txt USES standalone ICON src/textedit_icon.txt FILE_ICON src/textedit_file_icon.txt
               FILE TEXTEDIT.CVP README CART-README.md)

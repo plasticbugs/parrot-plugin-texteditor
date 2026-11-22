@@ -9,7 +9,9 @@
 # the plugin SDK itself, the two Z80 kernels, the file system, the packer and
 # the board definition. Only committed files are copied (git archive), and
 # sdk/SOURCE.txt records the commit they came from. Don't edit files under
-# sdk/: change them upstream and run this again.
+# sdk/: change them upstream and run this again. If SOURCE.txt lists files
+# taken from elsewhere ("also"), check that REF has them before you run
+# this, or put them back afterwards.
 set -e
 src=${1:?usage: tools/update-sdk.sh COLECO_CHECKOUT [REF]}
 ref=${2:-HEAD}
@@ -36,6 +38,7 @@ firmware/revc/sdplayer/htrace.h
 firmware/revc/sdplayer/perm.h
 firmware/revc/sdplayer/bin2c.py
 firmware/revc/sdplayer/mkcvp.py
+firmware/revc/sdplayer/test/cvserve_sim.py
 gbcv/kernel/gbkernel.asm
 hw3/pins.py
 "

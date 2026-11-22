@@ -74,5 +74,11 @@ bool cvf_waiting(void);                    // one published, not taken yet
 
 bool cvf_console_on(void);                 // the data outputs are driven
 
+// what core 1's loop refused since it started, with cvframes_serve2()
+// (cvfserve.S; all 0 without): addresses that looked like a select for two
+// samples and weren't; selects taken as their read ended; addresses that
+// looked like the header ($8000) and weren't
+void cvf_bus_counts(uint32_t *unsel, uint32_t *early, uint32_t *unhdr);
+
 // the launch block the menu started this plugin with, or NULL
 const cvl_t *cvf_launch(void);

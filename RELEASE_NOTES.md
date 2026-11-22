@@ -1,0 +1,2 @@
+- Text Editor starts without a file too, so the cart's menu lists it in Apps.
+- A USB keyboard on a powered hub is found when it was plugged in before the editor started, and when it's plugged in while the editor runs. With some hubs it wasn't found before.

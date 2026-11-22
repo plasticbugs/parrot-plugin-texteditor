@@ -32,7 +32,11 @@
 #define CVL_RETURN  0x31525643u            // "CVR1"
 #define CVL_API     1
 
-enum { CVL_BACK_CARD, CVL_BACK_HOME, CVL_BACK_PLUGINS };   // where the menu comes back to
+// where the menu comes back to: the card's folder back_dir; Home; the
+// Plugin Manager (back_dir its folder, "/PLUGINS/GAMES"); a group on Home
+// (back_dir its folder, "/PLUGINS" for Apps). back_row and back_index: the
+// entry the bar was on.
+enum { CVL_BACK_CARD, CVL_BACK_HOME, CVL_BACK_PLUGINS, CVL_BACK_GROUP };
 
 typedef struct {
     uint32_t magic, api, size;             // size: sizeof(cvl_t)
@@ -41,11 +45,11 @@ typedef struct {
     uint8_t file_contig;                   // exFAT NoFatChain: the file's clusters are consecutive
     uint8_t back;                          // CVL_BACK_*
     uint8_t back_row;                      // the row the bar was on
-    uint32_t back_index;                   // CVL_BACK_CARD: the entry (in the folder: page * 19 + row)
+    uint32_t back_index;                   // the entry (in the folder or group: page * 19 + row)
     uint64_t file_size;
     uint32_t file_clus;                    // its first cluster (0: an empty file)
     char path[256];                        // the file to open, "/NES/Mega Man 2.nes"; "" for none
-    char back_dir[256];                    // CVL_BACK_CARD: the folder ("" the root)
+    char back_dir[256];                    // the folder ("" the root); see CVL_BACK_*
     char note[33];                         // CVL_RETURN: the menu's bottom line, once ("" for none)
     uint8_t pad[3];
     uint32_t crc;                          // CRC-32 of all before it

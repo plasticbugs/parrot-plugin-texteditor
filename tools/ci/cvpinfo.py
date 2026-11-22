@@ -28,7 +28,7 @@ def main():
     readme_at, readme_len = struct.unpack_from("<II", d, 280)
     exts = [text(d[196 + 8 * i : 204 + 8 * i]) for i in range(8)]
     (flags,) = struct.unpack_from("<I", d, 260)
-    uses = [n for bit, n in ((1, "usb-host"), (2, "usb-device"), (4, "psram")) if flags & bit]
+    uses = [n for bit, n in ((1, "usb-host"), (2, "usb-device"), (4, "psram"), (8, "standalone")) if flags & bit]
     print(f"{args[0]}: {text(d[84:116])} {version} ({text(d[52:84])}) by {text(d[132:164]) or '?'}")
     print(f"  API {api}, image {size} bytes, home {text(d[164:196]) or '-'}, opens {' '.join(e for e in exts if e) or '-'}, uses {' '.join(uses) or '-'}")
     print(f"  README {readme_len} bytes" if readme_at else "  no README")

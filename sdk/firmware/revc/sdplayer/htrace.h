@@ -38,6 +38,7 @@ enum {                                     // marks
     HM_PARKED, HM_TITLE_PATH,                                    // either: the console parked; not, so AA 55
     HM_PAD_B, HM_PAD_EXIT,                                       // Movies: a pad's B or - seen; the kernel's exit made a jp (val 1: none to make)
     HM_USB,                                                      // the menu (chain) or Movies (going back): usbrole_packed()
+    HM_BIOS,                                                     // the menu: the BIOS started over in the loader (RESET); val: how many
 };
 
 typedef struct { uint32_t t, t_end, n; uint16_t off; uint8_t kind, byte; } ht_ev_t;

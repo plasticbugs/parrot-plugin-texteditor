@@ -13,7 +13,7 @@ would overwrite it.
 | `firmware/revc/sdk/cvreadme.py` | README.md to the cart's 30-column text |
 | `firmware/revc/midihello/` | the screen kernel (`midihello.asm`, Z80), the parking ROM (`handoff.asm`), the canvas and font (`vdp.c`, `font8.h`), the kernel's mailbox (`mailbox.h`) |
 | `gbcv/kernel/gbkernel.asm` | the frame kernel (Z80) |
-| `firmware/revc/sdplayer/` | the file system (`fsro.c`), the packer (`mkcvp.py`), and headers the SDK shares with the menu |
+| `firmware/revc/sdplayer/` | the file system (`fsro.c`), the packer (`mkcvp.py`), headers the SDK shares with the menu, and `test/cvserve_sim.py`, the bus model that `sdk/test/cvframes.sh` runs a frame plugin's bus loop against |
 | `firmware/revc/cvcart_revc/boards/` | the board definition for the pico-sdk |
 | `firmware/revc/bin2h_revc.py`, `hw3/pins.py` | the cart's pin order, which the kernels' images are arranged by |
 

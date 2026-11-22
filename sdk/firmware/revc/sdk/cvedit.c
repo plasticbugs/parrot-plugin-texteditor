@@ -418,7 +418,7 @@ static void put32(uint8_t *p, uint32_t v) { p[0] = (uint8_t)v; p[1] = (uint8_t)(
 
 static int spare_name(uint16_t *out, int slot) {
     char s[16];
-    snprintf(s, sizeof s, "EDITSAV%d.TMP", slot + 1);
+    snprintf(s, sizeof s, "EDITSAV%u.TMP", (unsigned)(slot + 1) & 7u);   // slot 0 or 1: one digit
     return widen(out, s);
 }
 
@@ -619,8 +619,8 @@ static int load_file(cvedit_t *e, fs_t *fs, const char *dir, const fs_file_t *f)
     char s[sizeof e->msg];
     if (f->is_dir) return fail(e, "Not opened", FS_ENAME);
     if (f->size > e->cfg.cap) {
-        snprintf(s, sizeof s, "Too big: %lu KB. The most is %lu KB", (unsigned long)((f->size + 1023) / 1024),
-                 (unsigned long)(e->cfg.cap / 1024));
+        snprintf(s, sizeof s, "Too big: %u KB. The most is %u KB", (unsigned)((f->size + 1023) / 1024),
+                 (unsigned)(e->cfg.cap / 1024));
         say(e, true, s);
         return FS_EFULL;
     }
@@ -784,7 +784,7 @@ static void open_list(cvedit_t *e) {
             if (f.is_dir || f.attr & (FS_A_HIDDEN | FS_A_SYSTEM) || e->d.lname[0] == '.') continue;
             if (!has_ext(e->d.lname, e->cfg.ext) || e->list_n == CVEDIT_LIST_MAX) continue;
             cvedit_entry_t *x = &e->list[e->list_n++];
-            snprintf(x->name, sizeof x->name, "%s", e->d.lname);
+            snprintf(x->name, sizeof x->name, "%.*s", (int)sizeof x->name - 1, e->d.lname);   // cut to fit
             x->clus = f.first_clus;
             x->size = f.size > 0xFFFFFFFFu ? 0xFFFFFFFFu : (uint32_t)f.size;
             x->contig = f.contig;
@@ -1101,9 +1101,9 @@ void cvedit_draw(cvedit_t *e, canvas_t *c, bool all) {
     char s[96], t[64];
     // the top line
     if (e->mode == CVE_LIST) {
-        snprintf(s, sizeof s, "Open from %s", e->list_dir[e->list[e->list_at].where]);
+        snprintf(s, sizeof s, "Open from %.*s", (int)(sizeof s - sizeof "Open from "), e->list_dir[e->list[e->list_at].where]);
     } else if (e->mode == CVE_NAME) {
-        snprintf(s, sizeof s, "Save in %s as:", e->save_dir);
+        snprintf(s, sizeof s, "Save in %.*s as:", (int)(sizeof s - sizeof "Save in  as:"), e->save_dir);
     } else if (e->mode == CVE_FOUND) {
         snprintf(s, sizeof s, "A save of %.18s was cut short", e->found_name);
     } else if (e->top_text) {
