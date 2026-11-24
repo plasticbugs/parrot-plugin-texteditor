@@ -1,2 +1,1 @@
-- Text Editor starts without a file too, so the cart's menu lists it in Apps.
-- A USB keyboard on a powered hub is found when it was plugged in before the editor started, and when it's plugged in while the editor runs. With some hubs it wasn't found before.
+Hold both fire buttons and * on controller 1 for 2 seconds to go back to the menu. RESET still works too.

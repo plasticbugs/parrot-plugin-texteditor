@@ -39,6 +39,6 @@ cvcart_features(textedit KEYBOARD CARD)
 cvedit_use(textedit)
 pico_enable_stdio_usb(textedit 0)
 pico_enable_stdio_uart(textedit 0)
-cvcart_plugin(textedit ID parrotcart.texteditor NAME "Text Editor" VERSION 0.1.3 BY "Parrot Cart"
+cvcart_plugin(textedit ID parrotcart.texteditor NAME "Text Editor" VERSION 0.1.4 BY "Parrot Cart"
               HOME /TEXT OPENS .txt USES standalone ICON src/textedit_icon.txt FILE_ICON src/textedit_file_icon.txt
               FILE TEXTEDIT.CVP README CART-README.md)

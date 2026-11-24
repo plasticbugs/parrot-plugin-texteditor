@@ -40,7 +40,7 @@ A file can be up to 127 KB. Lines keep the endings the file had. Characters outs
 
 A save writes the text to a spare file first (EDITSAV1.TMP or EDITSAV2.TMP, next to your file), then replaces your file, then removes the spare. If the power goes in the middle, the next start says a save was cut short. Press 1 to finish it or 3 to drop it.
 
-RESET goes back to the menu straight away. Save first, or the changes are lost.
+RESET goes back to the menu straight away, and so does holding both fire buttons and \* for 2 seconds. Save first, or the changes are lost.
 
 ## Credits
 
